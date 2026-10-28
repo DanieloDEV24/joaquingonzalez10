@@ -1,0 +1,494 @@
+@font-face {
+    font-family: 'Anton';
+    src: url(./assets/fonts/Anton-Regular.ttf) format('truetype');
+}
+
+section.home {
+    background-image:
+       /* Degradado lateral: zona de texto más oscura y con más alcance */
+linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.92) 0%,
+        rgba(0, 0, 0, 0.78) 30%,
+        rgba(0, 0, 0, 0.35) 55%,
+        rgba(0, 0, 0, 0) 75%
+    ),
+    /* Sombra inferior más intensa para dar profundidad al suelo */
+    linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0) 50%
+    ),
+    url('./assets/home/hero-defininivo.png');
+    background-repeat: no-repeat;
+    /* Ampliamos la imagen para que sobre margen en horizontal y vertical */
+      background-size: cover;
+
+    /* X bajo = el piloto se ve más a la derecha | Y bajo = se ve más abajo */
+    /* background-position: 180% -40%; */
+
+    min-height: 100vh; /* el contenedor debe tener altura propia */
+
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0rem 12rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+section.home h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    line-height: .9; /* evita que las líneas se solapen */
+    
+}
+
+section.home h1 span:last-child{
+    color: transparent;                 
+    -webkit-text-stroke: 5px #f3f4f6;      
+}
+
+section.home p.texto-home {
+    color: #f3f4f6;
+    font-size: 1.2rem;
+
+}
+
+section.home footer.botones-home {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+section.home footer.botones-home a {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-radius: 35px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    gap: 0.5rem;
+
+    position: relative;        /* referencia para el relleno del ::before */
+    overflow: hidden;          /* recorta el relleno al borde redondeado */
+    isolation: isolate;        /* mantiene el z-index del ::before dentro del botón */
+
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
+}
+
+.botones-home a:hover {
+    transform: translateY(-2px);
+}
+
+.botones-home a:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Foco visible para navegación con teclado */
+.botones-home a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+}
+
+.btn-primario svg {
+    transition: transform 0.3s ease;
+}
+
+/* La flecha avanza hacia la derecha */
+.btn-primario:hover svg {
+    transform: translateX(6px);
+}
+
+/* Respeta a quien tiene las animaciones desactivadas en el sistema */
+@media (prefers-reduced-motion: reduce) {
+    .botones-home a,
+    .botones-home a::before,
+    .btn-primario svg {
+        transition: none;
+    }
+}
+
+section.home footer.botones-home a:first-child {
+    background-color: #22EC3A; 
+    color: #000
+}
+
+section.home footer.botones-home a:last-child {
+   
+    color: #f3f4f6;
+    border: 2px solid #f3f4f6;
+}
+
+header.header-principal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 2rem;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
+}
+
+header.header-principal .contenedor-logo {
+    position: relative;       /* referencia para el img absoluto */
+    display: block;
+    height: 100%;
+    width: 140px;
+}
+
+header.header-principal .logo {
+    position: absolute;
+    top: -20%;                   /* pegado arriba, crece hacia abajo */
+    left: 0;
+    width: 100%;
+    height: auto;             /* mantiene la proporción */
+
+    /* Sombra para separarlo de la foto, como en tu referencia */
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.6));
+    transition: transform 0.3s ease-in-out;
+}
+
+header.header-principal .logo:hover {
+    transform: scale(1.05); /* efecto de zoom al pasar el ratón */
+}
+
+header.header-principal nav {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+}
+
+header.header-principal nav > a {
+    text-decoration: none;
+    color: #fff;
+    /* font-size: 1.1rem; */
+}
+
+header.header-principal nav > a.menu-contacto {
+    color: #22EC3A;
+    border: 2px solid #22EC3A;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    transition: all 0.2s ease-in-out;
+}
+
+header.header-principal nav > a.menu-contacto:hover {
+    color: transparent;
+    background-color: #22EC3A;
+    color: #000;
+
+}
+
+.cinta-wrapper {
+    overflow: hidden;
+    padding: 2.5rem 0; 
+    transform: translateY(-70px); /* evita que se vea un pixel de fondo negro en la parte superior */
+}
+
+.cinta {
+    width: 110%;                /* si fuera 100%, al rotar se verían los extremos vacíos */
+    margin-left: -5%;           /* centra ese 110% */
+    background: #22ee3c;
+    transform: rotate(-1.5deg); /* negativo = sube hacia la derecha */
+    padding: 0.6rem 0;
+    overflow: hidden;           /* recorta el texto que sale por los lados */
+    height: 40px;              /* altura de la banda */
+    display: flex;
+    align-items: center;         /* centra verticalmente el texto */
+}
+
+/* La pista mide lo que miden sus dos grupos y se anima */
+.cinta-track {
+    display: flex;
+    width: max-content;         /* sin esto, la pista se encogería al ancho de la banda */
+    animation: cinta-marquee 25s linear infinite;
+    color: #000;
+    font-family: 'Anton';
+    font-size: 2.5rem;
+}
+
+/* Cada grupo conserva su ancho real */
+.cinta-grupo {
+    display: flex;
+    flex-shrink: 0;             /* evita que flex los comprima */
+}
+
+/* Separador con padding, no con gap */
+.cinta-estrella {
+    padding: 0 1.25rem;
+}
+
+/* Se desplaza hasta la mitad: justo donde empieza la copia B */
+@keyframes cinta-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    color: #f3f4f6;
+    justify-content: center;
+}
+
+.stat-number {
+  font-family: "Anton", sans-serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 1;
+  color: #22ee3f;
+  text-align: start;
+  margin: 0;
+}
+
+.presentacion {
+    padding: 0rem 12rem;
+}
+
+.info-presentacion {
+    display: flex; 
+    width: 100%;
+    gap: 2rem;
+    margin-top: 5rem;
+    align-items: start;
+}
+
+.info-presentacion .images-presentacion {
+    width: 40%;
+    display: flex;
+    justify-content: start;
+    position: relative;
+}
+
+.info-presentacion .images-presentacion img:first-of-type {
+    width: 400px;
+    height: 470px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.info-presentacion .images-presentacion img:last-child {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    object-position: 65%;
+    position: absolute;
+    bottom: -90px;
+    right: 50px;
+    border: 3px solid #22ee3f;
+    border-radius: 5px;
+}
+
+.info-presentacion .images-presentacion > span {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-family: "Anton", sans-serif;
+    font-size: 1.5rem;
+    background-color: #22ee3f;
+    color: #000;
+    padding: 0.4rem 0.7rem;
+    border-radius: 3px;
+}
+
+.info-presentacion .texto-presentacion {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+
+.info-presentacion .texto-presentacion h2, section.moto h2 {
+    font-family: "Anton", sans-serif;
+    font-size: 7rem;
+    line-height: .9;
+    color: #f3f4f6;
+    text-align: start;
+    margin: 0;
+}
+
+.info-presentacion .texto-presentacion h2 span, section.moto h2 span {
+    color: transparent;                 
+    -webkit-text-stroke: 3px #f3f4f6;    
+}
+
+.info-presentacion .texto-presentacion p {
+    text-align: start;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    color: #f3f4f6;
+}
+
+
+ul.grid-datos-info {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    margin: 0;
+    padding: 0;
+    margin-top: 9rem;
+    width: 100%;
+    gap: 2rem;
+}
+
+ul.grid-datos-info li {
+    background-color: #111;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: 1rem;
+}
+
+ul.grid-datos-info li > div {
+    text-align: start;
+}
+
+ul.grid-datos-info li > div svg {
+    color: #22EC3A;
+}
+
+ul.grid-datos-info li > div small {
+    font-size: .9rem;
+    color: #22EC3A;
+}
+
+ul.grid-datos-info li > div h4 {
+    margin: .7rem 0rem;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.texto-presentacion > small, section.moto > small {
+    color: #22EC3A;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: .7rem;
+}
+
+section.moto {
+    padding: 0rem 12rem;
+    padding-top: 8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+section.moto .titulo-moto {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+section.moto .titulo-moto > div {
+    width: 50%;
+    text-align: end;
+}
+
+section.moto .titulo-moto > div p{
+    font-size: 1.5rem;
+    color: #22EC3A;
+    font-weight: bold;
+}
+
+section.moto .titulo-moto > div small{
+    font-size: 1.1rem;
+    color: #f3f4f6;
+}
+
+section.moto ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+    margin: 0;
+    padding: 0;
+    margin-top: 9rem;
+    width: 100%;
+    gap: 2rem;
+}
+
+section.moto ul li {
+    background-color: #111;
+    padding: 1rem 1.5rem;
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+}
+
+section.moto ul li > div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    color: #22EC3A;
+}
+
+section.moto ul li > div small {
+    font-size: .9rem;
+}
+
+section.moto ul li h4 {
+    margin: .7rem 0rem;
+    font-size: 1.5rem;
+    color: #fff;
+    font-family: 'Anton';
+}
+
+
+section.moto ul li p {
+    text-align: start;
+}
+
+section.moto ul li footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1rem;
+    margin-top: 1rem;
+    background-color: #000;
+    padding: .7rem;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-family: 'Anton';
+}
+
+section.moto ul li footer span:first-child {
+    color: #22EC3A;
+}
+
+section.moto ul li footer span:last-child {
+    color: #fff;
+}
