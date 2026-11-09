@@ -12,7 +12,7 @@ const datos = [
 
 export const Presentacion = () => {
     return(
-        <section className="presentacion">
+        <section className="presentacion" id="sobremi">
             <dl className="stats">
                 <div className="stat">
                     <dd className="stat-number">01</dd>

@@ -3,31 +3,34 @@
     src: url(./assets/fonts/Anton-Regular.ttf) format('truetype');
 }
 
+section p, section small {
+    text-align: start;
+}
+
 section.home {
     background-image:
-       /* Degradado lateral: zona de texto más oscura y con más alcance */
-linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0.92) 0%,
-        rgba(0, 0, 0, 0.78) 30%,
-        rgba(0, 0, 0, 0.35) 55%,
-        rgba(0, 0, 0, 0) 75%
-    ),
-    /* Sombra inferior más intensa para dar profundidad al suelo */
-    linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.6) 0%,
-        rgba(0, 0, 0, 0) 50%
-    ),
-    url('./assets/home/hero-defininivo.png');
+        /* Degradado lateral: zona de texto más oscura y con más alcance */
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.92) 0%,
+            rgba(0, 0, 0, 0.78) 30%,
+            rgba(0, 0, 0, 0.35) 55%,
+            rgba(0, 0, 0, 0) 75%
+        ),
+        /* Sombra inferior más intensa para dar profundidad al suelo */
+        linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.6) 0%,
+            rgba(0, 0, 0, 0) 50%
+        ),
+        url('./assets/home/hero-defininivo.png');
     background-repeat: no-repeat;
-    /* Ampliamos la imagen para que sobre margen en horizontal y vertical */
-      background-size: cover;
+    background-size: cover;
 
-    /* X bajo = el piloto se ve más a la derecha | Y bajo = se ve más abajo */
-    /* background-position: 180% -40%; */
+    /* Anclamos a la derecha: al estrechar, se recorta por la izquierda y el piloto se mantiene */
+    background-position: 85% center;
 
-    min-height: 100vh; /* el contenedor debe tener altura propia */
+    min-height: 100vh;
 
     display: flex;
     align-items: start;
@@ -37,6 +40,73 @@ linear-gradient(
     width: 100%;
     box-sizing: border-box;
 }
+
+header.header-principal button.menu-btn {
+    display: none;
+}
+
+/**
+ * Botón de menú sin marco, solo dos líneas.
+ * Las dos líneas miden 40px y están centradas igual.
+ * La corta se logra con scaleX, así la X final siempre queda centrada.
+ */
+.menu-btn {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;                /* solo afecta al aro de foco */
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .2s ease;
+}
+.menu-btn:active { transform: scale(.94); }
+.menu-btn:focus-visible { outline: 2px solid #22EC3A; outline-offset: 3px; }
+.menu-btn.is-open:focus-visible { outline-color: #000; }
+
+/* Línea base: 40px x 2px, centrada en el botón (25px de margen a cada lado) */
+.menu-btn span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 3px;
+  margin-top: -1px;                  /* centra verticalmente (mitad del grosor) */
+  margin-left: -20px;                /* centra horizontalmente (mitad del ancho) */
+  background: #f3f4f6;
+  border-radius: 10px;
+  transition: transform .45s cubic-bezier(.7, 0, .2, 1),
+              background-color .3s ease;
+}
+
+/* Cerrado: línea superior larga */
+.menu-btn span:nth-child(1) {
+  transform: translate(0, -4px) rotate(0deg) scaleX(1);
+}
+
+/* Cerrado: línea inferior corta (25px = 40px x .625), pegada al borde derecho de la larga */
+.menu-btn span:nth-child(2) {
+  background: #22EC3A;               /* color distinto para ver la animación */
+  transform: translate(7.5px, 4px) rotate(0deg) scaleX(.625);
+}
+
+/* Abierto: ambas al centro, a tamaño completo y rotadas en X */
+.menu-btn.is-open span:nth-child(1) {
+  transform: translate(0, 0) rotate(45deg) scaleX(.7);
+  
+}
+.menu-btn.is-open span:nth-child(2) {
+  transform: translate(0, 0) rotate(-45deg) scaleX(.7);
+}
+
+
+.menu-btn.is-open span {
+    background-color: #fff;
+}
+
 
 
 section.home h1 {
@@ -57,6 +127,7 @@ section.home h1 span:last-child{
 section.home p.texto-home {
     color: #f3f4f6;
     font-size: 1.2rem;
+    text-align: start;
 
 }
 
@@ -87,26 +158,26 @@ section.home footer.botones-home a {
         color 0.3s ease;
 }
 
-.botones-home a:hover {
+.botones-home a:hover, .btn-mas-fotos:hover, section.colaboradores footer.btns-marca a:hover {
     transform: translateY(-2px);
 }
 
-.botones-home a:active {
+.botones-home a:active, .btn-mas-fotos:active, section.colaboradores footer.btns-marca a:active {
     transform: translateY(0) scale(0.98);
 }
 
 /* Foco visible para navegación con teclado */
-.botones-home a:focus-visible {
+.botones-home a:focus-visible, .btn-mas-fotos:focus-visible, section.colaboradores footer.btns-marca a:focus-visible {
     outline: 2px solid #fff;
     outline-offset: 4px;
 }
 
-.btn-primario svg {
+.btn-primario svg, .btn-mas-fotos svg, section.colaboradores footer.btns-marca a svg {
     transition: transform 0.3s ease;
 }
 
 /* La flecha avanza hacia la derecha */
-.btn-primario:hover svg {
+.btn-primario:hover svg, .btn-mas-fotos:hover svg, section.colaboradores footer.btns-marca a:hover svg {
     transform: translateX(6px);
 }
 
@@ -114,7 +185,9 @@ section.home footer.botones-home a {
 @media (prefers-reduced-motion: reduce) {
     .botones-home a,
     .botones-home a::before,
-    .btn-primario svg {
+    .btn-primario svg,
+    .btn-mas-fotos svg, 
+    section.colaboradores footer.btns-marca a svg {
         transition: none;
     }
 }
@@ -143,18 +216,23 @@ header.header-principal {
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
+
+}
+
+header.header-principal.is-open {
+    background-color: #000;
 }
 
 header.header-principal .contenedor-logo {
     position: relative;       /* referencia para el img absoluto */
     display: block;
     height: 100%;
-    width: 140px;
+    width: 150px;
 }
 
 header.header-principal .logo {
     position: absolute;
-    top: -20%;                   /* pegado arriba, crece hacia abajo */
+    top: 20%;                   /* pegado arriba, crece hacia abajo */
     left: 0;
     width: 100%;
     height: auto;             /* mantiene la proporción */
@@ -162,26 +240,89 @@ header.header-principal .logo {
     /* Sombra para separarlo de la foto, como en tu referencia */
     filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.6));
     transition: transform 0.3s ease-in-out;
+    z-index: 9999;
 }
 
 header.header-principal .logo:hover {
     transform: scale(1.05); /* efecto de zoom al pasar el ratón */
 }
 
-header.header-principal nav {
+header.header-principal nav.navegacion {
     display: flex;
     gap: 3rem;
     align-items: center;
     justify-content: center;
 }
 
-header.header-principal nav > a {
+header.header-principal nav.navegacion-movil {
+    /* Siempre en flex, pero oculto */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: calc(100dvh - 70px);
+    padding: 5rem 3rem 4rem;
+    box-sizing: border-box;
+    background-color: #000;
+
+    /* Estado cerrado */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    pointer-events: none;
+
+    transition:
+        opacity .3s ease-in-out,
+        transform .3s ease-in-out,
+        visibility 0s linear .3s; /* espera a que acabe la animación para ocultarse */
+}
+
+header.header-principal nav.navegacion-movil.is-open {
+    /* Estado abierto */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+
+    transition:
+        opacity .3s ease-in-out,
+        transform .3s ease-in-out,
+        visibility 0s linear 0s; /* aparece inmediatamente al abrir */
+}
+
+header.header-principal nav.navegacion-movil a {
+    text-transform: uppercase;
+    font-family: 'Anton';
+    color: transparent;                 
+    -webkit-text-stroke: 2px #f3f4f6;   
+    font-size: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all .15s ease-in-out;
+}
+
+header.header-principal nav.navegacion-movil a::after{
+    display: none;
+}
+
+header.header-principal nav.navegacion-movil a:hover {
+    color: #22EC3A;
+    -webkit-text-stroke: 0px;   
+}
+
+header.header-principal nav.navegacion > a {
     text-decoration: none;
     color: #fff;
     /* font-size: 1.1rem; */
 }
 
-header.header-principal nav > a.menu-contacto {
+header.header-principal nav.navegacion > a.menu-contacto {
     color: #22EC3A;
     border: 2px solid #22EC3A;
     padding: 0.5rem 1.5rem;
@@ -189,7 +330,7 @@ header.header-principal nav > a.menu-contacto {
     transition: all 0.2s ease-in-out;
 }
 
-header.header-principal nav > a.menu-contacto:hover {
+header.header-principal nav.navegacion > a.menu-contacto:hover {
     color: transparent;
     background-color: #22EC3A;
     color: #000;
@@ -258,7 +399,7 @@ header.header-principal nav > a.menu-contacto:hover {
 
 .stat-number {
   font-family: "Anton", sans-serif;
-  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-size: 5.5rem;
   line-height: 1;
   color: #22ee3f;
   text-align: start;
@@ -267,6 +408,7 @@ header.header-principal nav > a.menu-contacto:hover {
 
 .presentacion {
     padding: 0rem 12rem;
+    box-sizing: border-box;
 }
 
 .info-presentacion {
@@ -324,7 +466,7 @@ header.header-principal nav > a.menu-contacto:hover {
 }
 
 
-.info-presentacion .texto-presentacion h2, section.moto h2 {
+.info-presentacion .texto-presentacion h2, section.moto h2, section.galeria-home h2, section.carreras h2, section.colaboradores h2, section.contacto h2, section.galeria h2{
     font-family: "Anton", sans-serif;
     font-size: 7rem;
     line-height: .9;
@@ -333,7 +475,7 @@ header.header-principal nav > a.menu-contacto:hover {
     margin: 0;
 }
 
-.info-presentacion .texto-presentacion h2 span, section.moto h2 span {
+.info-presentacion .texto-presentacion h2 span, section.moto h2 span, section.galeria-home h2 span, section.carreras h2 span, section.colaboradores h2 span, section.contacto h2 span, section.galeria h2 span{
     color: transparent;                 
     -webkit-text-stroke: 3px #f3f4f6;    
 }
@@ -349,7 +491,7 @@ header.header-principal nav > a.menu-contacto:hover {
 ul.grid-datos-info {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 370px), 1fr));
     margin: 0;
     padding: 0;
     margin-top: 9rem;
@@ -366,6 +508,13 @@ ul.grid-datos-info li {
     justify-content: start;
     align-items: start;
     gap: 1rem;
+    transition: all .3s ease-in-out;
+    border: 2px solid transparent;
+}
+
+ul.grid-datos-info li:hover {
+    transform: scale(1.05);
+    border-color: #22EC3A;
 }
 
 ul.grid-datos-info li > div {
@@ -387,7 +536,7 @@ ul.grid-datos-info li > div h4 {
     color: #fff;
 }
 
-.texto-presentacion > small, section.moto > small {
+.texto-presentacion > small, section.moto > small, section.galeria-home small, section.carreras small, section.colaboradores small, section.contacto small, section.galeria small{
     color: #22EC3A;
     font-weight: bold;
     font-size: 1.1rem;
@@ -415,7 +564,7 @@ section.moto .titulo-moto > div {
 }
 
 section.moto .titulo-moto > div p{
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #22EC3A;
     font-weight: bold;
 }
@@ -431,7 +580,7 @@ section.moto ul {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
     margin: 0;
     padding: 0;
-    margin-top: 9rem;
+    margin-top: 5rem;
     width: 100%;
     gap: 2rem;
 }
@@ -445,6 +594,13 @@ section.moto ul li {
     justify-content: start;
     align-items: start;
     flex-direction: column;
+    border: 2px solid transparent;
+    transition: all .3s ease-in-out;
+}
+
+section.moto ul li:hover {
+    border-color: #22EC3A;
+    transform: scale(1.05);
 }
 
 section.moto ul li > div {
@@ -491,4 +647,620 @@ section.moto ul li footer span:first-child {
 
 section.moto ul li footer span:last-child {
     color: #fff;
+}
+
+section.galeria-home, section.carreras{
+    padding: 10rem 12rem 0rem 12rem;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+}
+
+section.galeria-home > ul {
+    list-style: none;
+    display: flex;
+    padding: 0;    
+    align-items: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    width: 100%;
+}
+
+section.galeria-home > ul li:first-of-type {
+    width: 40%;
+}
+
+section.galeria-home > ul li:last-of-type {
+    width: 60%;
+}
+
+section.galeria-home > ul li img {
+    width: 100%;
+}
+
+section.galeria-home > ul li img {
+    width: 100%;
+    height: 52vh;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+section.galeria-home > ul li:last-of-type img {
+     object-position: center 12%;
+}
+
+section.galeria-home .titulo-galeria-home {
+    display: flex;
+    align-items: end;
+    gap: 1rem;
+}
+
+section.galeria-home .titulo-galeria-home a {
+    width: 25%;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .7rem 1.5rem;
+    border-radius: 35px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    gap: 0.5rem;
+    background-color: #22EC3A;
+    color: #000;
+    transition: transform 0.3s ease, color 0.3s ease;
+
+}
+
+section.carreras > ul.resultados-carreras {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin-top: 4rem;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+section.carreras > ul.resultados-carreras li {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    text-align: start;
+    border-top: 1px solid #f3f4f640;
+    height: 30vh;
+    transition: all .3s ease-in-out;
+}
+
+section.carreras > ul.resultados-carreras li:hover {
+    background-color: #22EC3A;
+    && > span {
+        color: transparent;                 
+        -webkit-text-stroke: 4px #000;   
+    }
+
+    && > div h4, && > div span {
+        color: #000;
+    }
+}
+
+section.carreras > ul.resultados-carreras li > * {
+    min-width: 0;
+}
+
+section.carreras > ul.resultados-carreras li > span {
+    font-family: 'Anton';
+    font-size: 7rem;
+    color: transparent;                 
+    -webkit-text-stroke: 4px #22EC3A;    
+    width: 11vw;
+}
+
+section.carreras > ul.resultados-carreras li > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    justify-content: center;
+    padding-top: 1.5rem;
+    
+}
+
+section.carreras > ul.resultados-carreras li > div h4 {
+    font-family: 'Anton'; 
+    font-size: 4rem;
+    color: #f3f4f6;
+    margin: 0;
+}
+
+section.carreras > ul.resultados-carreras li > div span {
+    font-size: 1.1rem;
+}
+
+section.carreras > p {
+    color: #f3f4f6;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+section.colaboradores {
+    padding: 10rem 12rem 0rem 12rem;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+}
+
+section.colaboradores > p, section.contacto > p, section.galeria > p {
+    color: #f3f4f6;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+
+section.colaboradores > ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    margin: 0; 
+    padding: 0;
+    width: 100%;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+section.colaboradores > ul li.anade-tu-marca {
+    border: 2px dashed #f3f4f6;
+    padding: 2rem;
+    font-size: .9rem;
+    color: #f3f4f6;
+    transition: all .2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section.colaboradores > ul li.marca {
+    
+    /* padding: 2rem; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: fit-content;
+}
+
+section.colaboradores > ul li.marca img {
+    max-width: 150px;
+}
+
+section.colaboradores > ul li.marca h4 {
+    font-family: 'Anton';
+    font-size: 1.3rem;
+    color: #f3f4f6;
+    margin-top: 1rem;
+    margin: 0
+}
+
+
+section.colaboradores > ul li.anade-tu-marca:hover {
+    color: #22EC3A;
+    border-color: #22EC3A;
+}
+
+section.colaboradores footer.btns-marca {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+section.colaboradores footer.btns-marca a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .7rem 1.5rem;
+    border-radius: 35px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    gap: 0.5rem;
+
+    position: relative;        /* referencia para el relleno del ::before */
+    overflow: hidden;          /* recorta el relleno al borde redondeado */
+    isolation: isolate;        /* mantiene el z-index del ::before dentro del botón */
+
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
+
+    background-color: #22EC3A;
+    color: #000;
+}
+
+section.contacto {
+    padding: 7rem 12rem 7rem 12rem;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    margin-top: 5rem;
+     background-image:
+       /* Degradado lateral: zona de texto más oscura y con más alcance */
+linear-gradient(
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.7)
+),
+    url('./assets/images/image-contacto.png');
+    background-repeat: no-repeat;
+    /* Ampliamos la imagen para que sobre margen en horizontal y vertical */
+      background-size: cover;
+
+    /* X bajo = el piloto se ve más a la derecha | Y bajo = se ve más abajo */
+    /* background-position: 180% -40%; */
+}
+
+/* section.contacto > h2 {
+    width: 80%;
+} */
+
+section.contacto > ul {
+    list-style: none; 
+    display: flex;
+    /* margin: 0; */
+    padding: 0;
+    width: 100%;
+    /* gap: 5rem; */
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+section.contacto > ul li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;      /* antes: start. Con stretch el <a> ocupa todo el ancho del li y puede recortarse */
+    gap: .5rem;
+    min-width: 0;              /* permite que el li se encoja por debajo del ancho de su contenido */
+}
+
+section.contacto > ul li small {
+    color: #f3f4f695;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: .9rem;
+    margin: 0;
+}
+
+section.contacto > ul li a {
+    text-decoration: none;
+    color: #f3f4f6;
+    font-size: 1.7rem;
+    font-family: 'Anton';
+    transition: all .17s ease-in-out;
+}
+
+section.contacto > ul li a:hover {
+    color: #22EC3A;
+}
+
+section.contacto > ul li div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+section.contacto > ul li div a {
+    font-size: 1.2rem;
+    border: 2px solid #f3f4f6;
+    padding: .5rem 1.5rem;
+    border-radius: 25px;
+}
+
+section.contacto > ul li div a:hover {
+    color: #22EC3A;
+    border-color: #22EC3A;
+}
+
+footer.footer-principal {
+    background-color: #111;
+    color: #f3f4f680;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding: 3rem 7rem;
+    box-sizing: border-box;
+    text-align: start;
+    flex-wrap: wrap;
+}
+
+footer.footer-principal > div:first-child {
+    width: 60%;
+}
+
+footer.footer-principal > div:las-child {
+    width: 35%;
+}
+
+footer.footer-principal .first-info{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    color: #f3f4f6;
+
+}
+
+footer.footer-principal .first-info img{
+    
+    width: 150px;
+}
+
+footer.footer-principal .secciones-web {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    padding-top: 1.2rem;
+
+}
+
+footer.footer-principal .secciones-web div {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.secciones-web p {
+    color: #22EC3A;
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
+    width: 100%;
+    font-family: 'Anton';
+    margin-bottom: 1.5rem;
+}
+
+.secciones-web a {
+    text-decoration: none;
+    color: #f3f4f6;
+    margin-bottom: .5rem;
+    font-family: 'Anton';
+    font-size: 1.2rem;
+    width: 30%;
+    transition: all .2s ease-in-out;
+}
+
+.secciones-web a:hover {
+    color: #22EC3A;
+}
+
+.copyright-footer {
+    width: 100%;
+    text-align: start;
+    margin-top: 2rem;
+    font-size: .9rem;
+    padding-top: 1rem;
+    color: #f3f4f680;
+    border-top: 1px solid #f3f4f640;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/* GALERIA */
+
+section.galeria {
+    padding: 10rem 12rem 7rem 12rem;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+}
+
+/* ---------- Contenedor ---------- */
+
+/* Permite medir el ancho para que cada fila mida lo mismo que una columna */
+.galeria__wrap {
+    container-type: inline-size;
+    width: 100%;
+    min-width: 0;
+    margin-top: 32px;
+    padding-top: 1rem
+}
+
+.contenedor-filtro {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.contenedor-filtro button {
+    background-color: #111;
+    color: #f3f4f6;
+    border: 2px solid #f3f4f6;
+    padding: .5rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    font-size: 1.2rem;
+}
+
+.contenedor-filtro button:hover, .contenedor-filtro button.active {
+    background-color: #22EC3A;
+    color: #000;
+    border-color: #22EC3A;
+}
+
+
+
+/* ---------- Grid ---------- */
+
+.galeria__grid {
+    margin-top: 2rem;
+    --cols: 12;
+    --gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    grid-auto-rows: calc((100cqw - (var(--cols) - 1) * var(--gap)) / var(--cols));
+    grid-auto-flow: dense;
+    gap: var(--gap);
+}
+
+/* ---------- Tarjetas ---------- */
+
+.galeria__item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #111;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: border-color 0.25s ease;
+}
+
+.galeria__item:hover {
+    border-color: #22ff44;
+}
+
+.galeria__item img,
+.galeria__item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.galeria__item:hover img,
+.galeria__item:hover video {
+    transform: scale(1.04);
+}
+
+/* Degradado inferior sutil */
+.galeria__item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.35), transparent 45%);
+    pointer-events: none;
+}
+
+/* ---------- Tamaños: solo dos, todos de 4 filas de alto ---------- */
+
+.galeria__item--horizontal { grid-column: span 6; grid-row: span 4; } /* 3:2 */
+.galeria__item--vertical   { grid-column: span 3; grid-row: span 4; } /* 3:4 */
+
+/* ---------- Botón de play ---------- */
+
+.galeria__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: none;
+    background: #22ff44;
+    color: #000;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.galeria__play:hover {
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+.galeria__play:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+}
+
+/* ---------- Responsive ---------- */
+
+/* Tablet y móvil: 6 columnas */
+@media (max-width: 900px) {
+    .galeria__grid {
+        --cols: 6;
+        --gap: 12px;
+    }
+
+    .galeria__item--horizontal { grid-column: span 6; grid-row: span 4; }
+    .galeria__item--vertical   { grid-column: span 3; grid-row: span 4; }
+
+    .galeria__play {
+        width: 56px;
+        height: 56px;
+    }
+}
+
+/* ---------- Accesibilidad ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .galeria__item img,
+    .galeria__item video,
+    .galeria__play {
+        transition: none;
+    }
+
+    .galeria__item:hover img,
+    .galeria__item:hover video {
+        transform: none;
+    }
+}
+
+
+/* LINKS HEADER */
+/* ===== Enlaces del menú ===== */
+.menu-link {
+  position: relative;           /* Referencia para posicionar la línea */
+  display: inline-block;
+  padding-bottom: 4px;          /* Espacio entre el texto y la línea */
+  text-decoration: none;
+  transition: color 0.3s ease;     /* Transición suave para el cambio de color */
+}
+.menu-link:hover,
+.menu-link:focus-visible, .menu-link:hover::after, .menu-link:focus-visible::after {
+  color: #22EC3A;               /* Cambia el color del texto al pasar el ratón o al enfocar con teclado */
+}
+
+/* Línea animada (oculta por defecto) */
+.menu-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;   /* Hereda el color del texto; cámbialo por tu color de acento si quieres */
+  transform: scaleX(0);             /* Colapsada: 0 de ancho */
+  transform-origin: right;          /* Al salir, se recoge hacia la derecha */
+  transition: transform 0.3s ease;
+}
+
+/* Hover y foco con teclado: la línea se dibuja de izquierda a derecha */
+.menu-link:hover::after,
+.menu-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;           /* Al entrar, crece desde la izquierda */
+}
+
+  .menu-contacto::after {
+    display: none;
+  }
+
+/* Respeta a quien tiene desactivadas las animaciones en su sistema */
+@media (prefers-reduced-motion: reduce) {
+  .menu-link::after {
+    transition: none;
+  }
 }

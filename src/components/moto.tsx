@@ -64,7 +64,7 @@ const specifications = [
 
 export const Moto = () => {
     return (
-        <section className="moto">
+        <section className="moto" id="moto">
             <small>★ LA MOTO.</small>
             <div className="titulo-moto">
                 <h2>LA MÁQUINA VERDE: <span>KAWASAKI KX 85CC.</span></h2>
