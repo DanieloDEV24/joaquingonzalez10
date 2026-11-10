@@ -1,11 +1,25 @@
+import type { ComponentType } from "react";
+import { motion, useReducedMotion, type Variants } from "motion/react";
 import { IconoVelocidad } from "./icons/iconoVelocidad";
 import { IconoDash } from "./icons/iconoDash";
 import { IconoSettings } from "./icons/iconoSettings";
-import { IconoMotor } from "./icons/iconoMotor"; 
+import { IconoMotor } from "./icons/iconoMotor";
 import { IconoSound } from "./icons/iconoSound";
 import { IconoColor } from "./icons/iconoColor";
 
-const specifications = [
+interface Especificacion {
+  category: string;
+  title: string;
+  description: string;
+  icon: ComponentType;
+  footerLabel: string;
+  footerValue: string;
+}
+
+/**
+ * Especificaciones técnicas de la moto (una tarjeta por elemento).
+ */
+const specifications: Especificacion[] = [
   {
     category: "POWERTRAIN",
     title: "MOTOR 84CC 2T",
@@ -62,39 +76,93 @@ const specifications = [
   },
 ];
 
-export const Moto = () => {
-    return (
-        <section className="moto" id="moto">
-            <small>★ LA MOTO.</small>
-            <div className="titulo-moto">
-                <h2>LA MÁQUINA VERDE: <span>KAWASAKI KX 85CC.</span></h2>
-                <div>
-                    <small>CONFIGURACIÓN NACIONAL MX85.</small>
-                    <p>2-STROKE COMPETITION SETUP.</p>
-                </div>
-            </div>
+/**
+ * Configuración del viewport: se anima una sola vez, cuando el 25 % del bloque es visible.
+ */
+const viewport = { once: true, amount: 0.25 };
 
-            <ul className="info-moto">
-                {
-                    specifications.map((data, index) => {
-                        const Icono = data.icon;
-                        return (
-                            <li key={index}>
-                                <div>
-                                    <small>{data.category}</small>
-                                    <Icono/>
-                                </div>
-                                <h4>{data.title}</h4>
-                                <p>{data.description}</p>
-                                <footer className="footer-stat-moto">
-                                    <span>{data.footerLabel}</span>
-                                    <span>{data.footerValue}</span>
-                                </footer>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
-        </section>
-    )
-}
+/**
+ * Contenedor: no anima nada por sí mismo, solo escalona la entrada de sus hijos.
+ */
+const contenedor: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } },
+};
+
+/**
+ * Elemento hijo: fade + subida corta.
+ */
+const aparecer: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+
+/**
+ * Sección "La moto": encabezado y tarjetas con las especificaciones.
+ * Cada bloque se anima al entrar en pantalla. Respeta prefers-reduced-motion.
+ */
+export const Moto = () => {
+  // Si el usuario tiene animaciones reducidas, todo se muestra directamente
+  const reducir = useReducedMotion();
+  const inicial = reducir ? "show" : "hidden";
+
+  return (
+    <section className="moto" id="moto">
+      {/* Etiqueta superior */}
+      <motion.small
+        variants={aparecer}
+        initial={inicial}
+        whileInView="show"
+        viewport={viewport}
+      >
+        ★ LA MOTO.
+      </motion.small>
+
+      {/* Encabezado: título y subtítulo entran en cascada */}
+      <motion.div
+        className="titulo-moto"
+        variants={contenedor}
+        initial={inicial}
+        whileInView="show"
+        viewport={viewport}
+      >
+        <motion.h2 variants={aparecer}>
+          LA MÁQUINA VERDE: <span>KAWASAKI KX 85CC.</span>
+        </motion.h2>
+
+        <motion.div variants={aparecer}>
+          <small>CONFIGURACIÓN NACIONAL MX85.</small>
+          <p>2-STROKE COMPETITION SETUP.</p>
+        </motion.div>
+      </motion.div>
+
+      {/* Tarjetas: aparecen una tras otra */}
+      <motion.ul
+        className="info-moto"
+        variants={contenedor}
+        initial={inicial}
+        whileInView="show"
+        viewport={{ once: true, amount: 0.15 }}
+      >
+        {specifications.map((data) => {
+          const Icono = data.icon;
+
+          return (
+            <motion.li key={data.title} variants={aparecer}>
+              <div>
+                <small>{data.category}</small>
+                <Icono />
+              </div>
+              <h4>{data.title}</h4>
+              <p>{data.description}</p>
+              <footer className="footer-stat-moto">
+                <span>{data.footerLabel}</span>
+                <span>{data.footerValue}</span>
+              </footer>
+            </motion.li>
+          );
+        })}
+      </motion.ul>
+    </section>
+  );
+};

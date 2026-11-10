@@ -1,5 +1,5 @@
 export const IconoSound = () => {
     return (
-       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-waveform"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 10.5v3" /><path d="M8 7v10" /><path d="M12 8v8" /><path d="M16 4v16" /><path d="M20 10v4" /></svg>
+       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-waveform"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 10.5v3" /><path d="M8 7v10" /><path d="M12 8v8" /><path d="M16 4v16" /><path d="M20 10v4" /></svg>
     )
 }

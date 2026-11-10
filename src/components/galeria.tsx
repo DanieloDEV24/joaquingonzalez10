@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { motion, useReducedMotion, type Variants } from 'motion/react'
 
 import img1 from '../assets/images/galeria/img-galeria1.jpeg'
 import img2 from '../assets/images/galeria/img-galeria2.jpeg'
@@ -114,6 +115,27 @@ const construirItems = (): Item[] => {
 
 const items = construirItems()
 
+/* ---------- Animación ---------- */
+
+/**
+ * Viewport del encabezado: se anima una sola vez, cuando el 25 % del bloque es visible.
+ */
+const viewport = { once: true, amount: 0.25 }
+
+/**
+ * Viewport de cada elemento de la galería: umbral bajo porque hay muchos
+ * elementos y cada uno se anima de forma independiente al llegar a pantalla.
+ */
+const viewportItem = { once: true, amount: 0.1 }
+
+/**
+ * Elemento hijo: fade + subida corta.
+ */
+const aparecer: Variants = {
+    hidden: { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+}
+
 /* ---------- Orientación ---------- */
 
 type Orientacion = 'horizontal' | 'vertical'
@@ -175,14 +197,25 @@ const VideoItem = ({ src, onMedida }: VideoItemProps) => {
 type GaleriaItemProps = {
     item: Item
     indice: number
+    inicial: 'hidden' | 'show'
 }
 
-const GaleriaItem = ({ item, indice }: GaleriaItemProps) => {
+/**
+ * Cada elemento se anima por su cuenta al entrar en pantalla,
+ * así no hay que esperar a una cascada de decenas de elementos.
+ */
+const GaleriaItem = ({ item, indice, inicial }: GaleriaItemProps) => {
     const [orientacion, setOrientacion] = useState<Orientacion>('horizontal')
     const medir = (w: number, h: number) => setOrientacion(clasificar(w, h))
 
     return (
-        <li className={`galeria__item galeria__item--${orientacion}`}>
+        <motion.li
+            className={`galeria__item galeria__item--${orientacion}`}
+            variants={aparecer}
+            initial={inicial}
+            whileInView="show"
+            viewport={viewportItem}
+        >
             {item.tipo === 'foto' ? (
                 <img
                     src={item.src}
@@ -195,7 +228,7 @@ const GaleriaItem = ({ item, indice }: GaleriaItemProps) => {
             ) : (
                 <VideoItem src={item.src} onMedida={medir} />
             )}
-        </li>
+        </motion.li>
     )
 }
 
@@ -203,8 +236,16 @@ const GaleriaItem = ({ item, indice }: GaleriaItemProps) => {
 
 type Filtro = 'foto' | 'video' | null
 
+/**
+ * Sección "Galería": encabezado, filtros y rejilla de fotos y vídeos.
+ * Cada bloque se anima al entrar en pantalla. Respeta prefers-reduced-motion.
+ */
 export const Galeria = () => {
     const [filtro, setFiltro] = useState<Filtro>(null)
+
+    // Si el usuario tiene animaciones reducidas, todo se muestra directamente
+    const reducir = useReducedMotion()
+    const inicial = reducir ? 'show' : 'hidden'
 
     // Pulsar el filtro activo lo desactiva y vuelve a mostrar todo
     const alternar = (nuevo: 'foto' | 'video') =>
@@ -214,13 +255,43 @@ export const Galeria = () => {
 
     return (
         <section className="galeria">
-            <small>★ GALERÍA.</small>
-            <h2>GALERÍA EN PISTA <span>& MAREA VERDE #10.</span></h2>
-            <p>Barro, polvo y gas. Fotos y videos de entrenos y carreras vuelta a vuelta.</p>
+            {/* Etiqueta, título y descripción */}
+            <motion.small
+                variants={aparecer}
+                initial={inicial}
+                whileInView="show"
+                viewport={viewport}
+            >
+                ★ GALERÍA.
+            </motion.small>
+
+            <motion.h2
+                variants={aparecer}
+                initial={inicial}
+                whileInView="show"
+                viewport={viewport}
+            >
+                GALERÍA EN PISTA <span>& MAREA VERDE #10.</span>
+            </motion.h2>
+
+            <motion.p
+                variants={aparecer}
+                initial={inicial}
+                whileInView="show"
+                viewport={viewport}
+            >
+                Barro, polvo y gas. Fotos y videos de entrenos y carreras vuelta a vuelta.
+            </motion.p>
 
             <div className="galeria__wrap">
-
-                <div className="contenedor-filtro">
+                {/* Filtros */}
+                <motion.div
+                    className="contenedor-filtro"
+                    variants={aparecer}
+                    initial={inicial}
+                    whileInView="show"
+                    viewport={viewport}
+                >
                     <button
                         id="filtro-fotos"
                         className={filtro === 'foto' ? 'active' : ''}
@@ -237,11 +308,12 @@ export const Galeria = () => {
                     >
                         Vídeos
                     </button>
-                </div>
+                </motion.div>
 
+                {/* Rejilla: cada elemento aparece al llegar a pantalla */}
                 <ul className="galeria__grid">
                     {visibles.map((item, i) => (
-                        <GaleriaItem key={item.src} item={item} indice={i} />
+                        <GaleriaItem key={item.src} item={item} indice={i} inicial={inicial} />
                     ))}
                 </ul>
             </div>

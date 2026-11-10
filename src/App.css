@@ -7,6 +7,10 @@ section p, section small {
     text-align: start;
 }
 
+section.moto .titulo-moto > div p, section.moto .titulo-moto > div small {
+    text-align: end;
+}
+
 section.home {
     background-image:
         /* Degradado lateral: zona de texto más oscura y con más alcance */
@@ -424,6 +428,7 @@ header.header-principal nav.navegacion > a.menu-contacto:hover {
     display: flex;
     justify-content: start;
     position: relative;
+    box-sizing: border-box;
 }
 
 .info-presentacion .images-presentacion img:first-of-type {
@@ -504,9 +509,9 @@ ul.grid-datos-info li {
     padding: 1.5rem;
     box-sizing: border-box;
     border-radius: 10px;
-    display: flex;
+    /* display: flex;
     justify-content: start;
-    align-items: start;
+    align-items: start; */
     gap: 1rem;
     transition: all .3s ease-in-out;
     border: 2px solid transparent;
@@ -515,6 +520,12 @@ ul.grid-datos-info li {
 ul.grid-datos-info li:hover {
     transform: scale(1.05);
     border-color: #22EC3A;
+}
+
+ul.grid-datos-info li > div:first-of-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 ul.grid-datos-info li > div {
@@ -550,6 +561,7 @@ section.moto {
     flex-direction: column;
     align-items: start;
     justify-content: center;
+    
 }
 
 section.moto .titulo-moto {
@@ -893,6 +905,7 @@ linear-gradient(
     background-repeat: no-repeat;
     /* Ampliamos la imagen para que sobre margen en horizontal y vertical */
       background-size: cover;
+      background-position: center;
 
     /* X bajo = el piloto se ve más a la derecha | Y bajo = se ve más abajo */
     /* background-position: 180% -40%; */

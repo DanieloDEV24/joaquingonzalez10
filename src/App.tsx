@@ -1,7 +1,7 @@
 import './App.css'
 import './responsive.css'
 import { useEffect } from 'react'
-import { Routes, Route, Outlet, Navigate, useLocation } from 'react-router-dom'
+import { Routes, Route, Outlet, useLocation } from 'react-router-dom'
 import { Home } from './components/home'
 import { Header } from './components/header'
 import { Cinta } from './components/cinta'
@@ -13,6 +13,9 @@ import { Carreras } from './components/carreras'
 import { Colaboradores } from './components/colaboradores'
 import { Contacto } from './components/contacto'
 import { Footer } from './components/footer'
+import Preloader from './components/preloader'
+import NotFound from './components/paginaError'
+
 
 // Hace scroll a la sección del hash (#contacto) o arriba si no hay hash
 const ScrollManager = () => {
@@ -58,13 +61,16 @@ const Landing = () => (
 
 function App() {
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<Landing />} />
-        <Route path="/galeria" element={<Galeria />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Route>
-    </Routes>
+    <>
+      <Preloader once/>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Landing />} />
+          <Route path="/galeria" element={<Galeria />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </>
   )
 }
 

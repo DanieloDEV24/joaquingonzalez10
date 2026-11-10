@@ -11,7 +11,7 @@
 
 
 @media screen and (max-width: 1850px) {
-    .info-presentacion .texto-presentacion h2, section.moto h2, .info-presentacion .texto-presentacion h2, section.galeria-home h2, section.carreras h2, section.colaboradores h2, section.contacto h2, section.carreras > ul.resultados-carreras li > span {
+    .info-presentacion .texto-presentacion h2, section.moto h2, .info-presentacion .texto-presentacion h2, section.galeria-home h2, section.carreras h2, section.colaboradores h2, section.contacto h2, section.carreras > ul.resultados-carreras li > span, section.galeria h2 {
         font-size: 6.5rem;
     }
 }
@@ -71,7 +71,7 @@
         padding: 0 2.5rem;
     }
 
-    section.home, section.presentacion, section.moto, section.galeria-home, section.carreras, section.colaboradores, section.contacto, footer.footer-principal {
+    section.home, section.presentacion, section.moto, section.galeria-home, section.carreras, section.colaboradores, section.contacto, footer.footer-principal, section.galeria {
         padding-left: 7rem;
         padding-right: 7rem;
     }
@@ -258,14 +258,30 @@
     }
 
 
+    section.home h1 span:last-child {
+        color: transparent;
+        -webkit-text-stroke: 3px #f3f4f6;
+    }
+
     section.carreras > ul.resultados-carreras li {
         gap: 8rem;
     }
 }
 
+@media screen and (max-width: 1024px){
+    header.header-principal nav.navegacion-movil {
+        justify-content: start !important;
+    }
+
+    header.header-principal nav.navegacion-movil a {
+    line-height: .6;
+    font-size: 6rem;
+    }
+}
+
 @media screen and (max-width: 1000px){
 
-    section.home, section.presentacion, section.moto, section.galeria-home, section.carreras, section.colaboradores, section.contacto, footer.footer-principal {
+    section.home, section.presentacion, section.moto, section.galeria-home, section.carreras, section.colaboradores, section.contacto, footer.footer-principal, section.galeria {
         padding-left: 6rem;
         padding-right: 6rem;
     }
@@ -330,27 +346,53 @@
         border: 3px solid #22ee3f;
         border-radius: 5px;
     }
+
+    .copyright-footer {
+        flex-wrap: wrap;
+    }
+
+    .copyright-footer p {
+        width: 100%;
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 850px) {
-    section.galeria-home .titulo-galeria-home a {
+    section.galeria-home .titulo-galeria-home a, section.colaboradores footer.btns-marca a, section.colaboradores footer.btns-marca  {
         width: 100%;
     }
     
 
-    section.home, section.presentacion, section.moto, section.galeria-home, section.carreras, section.colaboradores, section.contacto, footer.footer-principal {
+    section.home, section.presentacion, section.moto, section.galeria-home, section.carreras, section.colaboradores, section.contacto, footer.footer-principal, section.galeria {
         padding-left: 5rem;
         padding-right: 5rem;
+    }
+
+    .contenedor-filtro button {
+        width: 50%;
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+    section.home h1, section.home p.texto-home {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    section.home footer.botones-home {
+        justify-content: center;
+    }
+
+    section.home {
+        background-position: 72% center;
     }
 }
 
 @media screen and (max-width: 780px) {
 
-    section.home {
-        background-position: 65% center;
-    }
-
-    .info-presentacion .texto-presentacion h2, section.moto h2, .info-presentacion .texto-presentacion h2, section.galeria-home h2, section.carreras h2, section.colaboradores h2, section.contacto h2, section.carreras > ul.resultados-carreras li > span {
+    .info-presentacion .texto-presentacion h2, section.moto h2, .info-presentacion .texto-presentacion h2, section.galeria-home h2, section.carreras h2, section.colaboradores h2, section.contacto h2, section.carreras > ul.resultados-carreras li > span, section.galeria h2 {
         font-size: 5rem;
     }
 
@@ -360,7 +402,10 @@
 
     section.carreras > ul.resultados-carreras li {
         gap: 6rem;
+        height: 25vh;
     }
+
+
 
 }
 
@@ -368,6 +413,11 @@
 
     section.home h1 {
         font-size: 7rem;
+    }
+
+    section.home h1 span:last-child {
+        color: transparent;
+        -webkit-text-stroke: 3px #f3f4f6;
     }
 
     .info-presentacion .images-presentacion img:last-child {
@@ -388,6 +438,11 @@
 
     section.home h1 {
         font-size: 6rem;
+    }
+
+    section.home h1 span:last-child {
+        color: transparent;
+        -webkit-text-stroke: 2px #f3f4f6;
     }
 
     section.home footer.botones-home {
@@ -422,7 +477,7 @@
         text-overflow: ellipsis; 
     }
 
-    section.home, section.presentacion, section.moto, section.galeria-home, section.carreras, section.colaboradores, section.contacto, footer.footer-principal {
+    section.home, section.presentacion, section.moto, section.galeria-home, section.carreras, section.colaboradores, section.contacto, footer.footer-principal, section.galeria {
         padding-left: 3.5rem;
         padding-right: 3.5rem;
     }
@@ -437,8 +492,9 @@
 
 }
 
+
 @media screen and (max-width: 550px) {
-    .info-presentacion .texto-presentacion h2, section.moto h2, .info-presentacion .texto-presentacion h2, section.galeria-home h2, section.carreras h2, section.colaboradores h2, section.contacto h2 {
+    .info-presentacion .texto-presentacion h2, section.moto h2, .info-presentacion .texto-presentacion h2, section.galeria-home h2, section.carreras h2, section.colaboradores h2, section.contacto h2, .stat-number, section.galeria{
         font-size: 3.5rem;
         overflow-wrap: anywhere; /* evita desbordes con palabras largas como "Patrocinadores" */
     }
@@ -475,11 +531,248 @@
         ),
         url('./assets/home/hero-defininivo.png');
     }
+
+    section.carreras > ul.resultados-carreras li > span {
+        font-size: 4rem;
+        -webkit-text-stroke: 2px #22EC3A;
+    }
+
+    section.carreras > ul.resultados-carreras li:hover {
+        && > span {
+            color: transparent;                 
+            -webkit-text-stroke: 3px #000;   
+        }
+    }
+
+    section.carreras > ul.resultados-carreras li {
+        gap: 5.5rem;
+        height: 20vh;
+    }
+
+    header.header-principal nav.navegacion-movil {
+        justify-content: start !important;
+    }
+
+    header.header-principal nav.navegacion-movil a {
+        line-height: .6;
+        font-size: 5rem;
+    }
+
+    .contenedor-filtro button {
+        width: 100%;
+    }
+
+    .contenedor-filtro {
+        flex-wrap: wrap;
+    }
+
+    /* ul.grid-datos-info li {
+        flex-wrap: wrap;
+        row-gap: 0rem;
+    }
+
+    ul.grid-datos-info li > div:first-of-type {
+        width: 100%;
+        display: none;
+    } */
 }
 
 @media screen and (max-width: 500px) {
-    section.home, section.presentacion, section.moto, section.galeria-home, section.carreras, section.colaboradores, section.contacto, footer.footer-principal {
+    section.home, section.presentacion, section.moto, section.galeria-home, section.carreras, section.colaboradores, section.contacto, footer.footer-principal, section.galeria {
         padding-left: 2.5rem;
         padding-right: 2.5rem;
+    }
+
+    section.home {
+    background-position: 72% center;
+}
+}
+
+
+@media screen and (max-width: 480px) {
+    .info-presentacion .images-presentacion img:first-of-type {
+        width: 320px;
+        height: 420px;
+    }
+
+    .info-presentacion .images-presentacion img:last-child {
+        width: 190px;
+        height: 190px;
+    }
+
+    header.header-principal nav.navegacion-movil a {
+        line-height: .6;
+        font-size: 4.5rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+
+    section.contacto > ul li:last-of-type {
+        width: 100%;
+    }
+
+    .redes-sociales {
+        flex-wrap: wrap;
+    }
+
+    .redes-sociales a {
+        width: 100%;
+    }
+
+    .copyright-footer {
+        gap: 1rem;
+    }
+
+    header.header-principal .contenedor-logo, footer.footer-principal .first-info img {
+        width: 120px;
+    }
+
+    header.header-principal .logo {
+        top: 30%;
+    }
+
+    section.moto, section.galeria-home, section.carreras, section.colaboradores {
+        padding-top: 5rem;
+    }
+
+    .nf__btn {
+        width: 100% !important;
+    }
+
+    .nf__actions {
+        box-sizing: border-box;
+    }
+}
+
+@media screen and (max-width: 440px) {
+
+    .stat {
+        width: 35%;
+        align-items: center;
+    }
+
+    .stats {
+        gap: 3rem;
+    }
+
+    section.home h1 {
+        font-size: 5rem;
+    }
+}
+
+@media screen and (max-width: 435px) {
+    header.header-principal nav.navegacion-movil a {
+        line-height: .5;
+        font-size: 4rem;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .info-presentacion .images-presentacion img:first-of-type {
+        width: 280px;
+        height: 380px;
+    }
+
+    .info-presentacion .images-presentacion img:last-child {
+        width: 170px;
+        height: 170px;
+    }
+
+    section.moto ul li footer {
+        flex-direction: column;
+        align-items: start;
+        gap: .5rem;
+    }
+
+    section.home, section.presentacion, section.moto, section.galeria-home, section.carreras, section.colaboradores, section.contacto, footer.footer-principal, section.galeria {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    section.carreras > ul.resultados-carreras li > div h4 {
+        font-size: 2.2rem;
+    }
+
+    header.header-principal nav.navegacion-movil a {
+        line-height: .5;
+        font-size: 3.5rem;
+    }
+
+}
+
+@media screen and (max-width: 390px) {
+    .stat {
+        width: 100%;
+        
+    }
+
+    ul.grid-datos-info li h4, section.moto ul li h4{
+        width: 85%;
+        text-align: start;
+    }
+
+    section.moto ul li, ul.grid-datos-info li {
+        padding: 1rem;
+    }
+
+}
+
+@media screen and (max-width: 380px) {
+
+    .info-presentacion .images-presentacion {
+        flex-direction: column;
+    }
+
+    .info-presentacion .images-presentacion img:first-of-type {
+        width: 100%;
+    }
+
+    .info-presentacion .images-presentacion img:last-child {
+        width: 100%; 
+        bottom: 0;
+        position: relative;
+        border: 0px;
+    }
+
+    section.home h1 {
+        font-size: 4.5rem;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    section.home, section.presentacion, section.moto, section.galeria-home, section.carreras, section.colaboradores, section.contacto, footer.footer-principal, section.galeria {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    section.carreras > ul.resultados-carreras li > span {
+        font-size: 3.7rem;
+        -webkit-text-stroke: 1px #22EC3A;
+    }
+
+    section.carreras > ul.resultados-carreras li:hover {
+        && > span {
+            color: transparent;
+            -webkit-text-stroke: 2px #000;
+        }
+    }
+
+    section.carreras > ul.resultados-carreras li {
+        gap: 5rem;
+    }
+
+    header.header-principal nav.navegacion-movil a {
+        line-height: .3;
+        font-size: 3rem;
+    }
+}
+
+@media screen and (max-width: 330px) {
+   section.carreras > ul.resultados-carreras li > div h4 {
+        font-size: 2rem;
     }
 }
