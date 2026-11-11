@@ -162,7 +162,7 @@ export default function Preloader({
         <div ref={logoRef} className="pl-logo-wrap">
           {/* key={gear}: el logo da un golpe cada vez que cambia la marcha */}
           <div key={gear} className={gear > 0 ? 'pl-hit' : undefined}>
-            <img className="pl-logo" src={logo} alt="" width={1254} height={750} decoding="sync" />
+            <img className="pl-logo" src={logo} alt="" width={600} height={359} decoding="sync" />
           </div>
         </div>
 
