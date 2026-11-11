@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://joaquingonzalez10.com/sitemap.xml
+Sitemap: https://joaquingonzalez10.netlify.app/sitemap.xml
