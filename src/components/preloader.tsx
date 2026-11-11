@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import logo from '../../src/assets/images/logo.png'
+import logo from '../../src/assets/images/logo.webp'
 import '../preloader.css'
 
 type Phase = 'loading' | 'redline' | 'exit' | 'gone'

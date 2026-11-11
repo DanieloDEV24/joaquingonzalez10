@@ -1,5 +1,5 @@
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import logo from '../assets/images/logo.png'
+import logo from '../assets/images/logo.webp'
 
 /**
  * Configuración del viewport: se anima una sola vez, cuando el 15 % del footer es visible.
