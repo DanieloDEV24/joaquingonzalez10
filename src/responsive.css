@@ -530,7 +530,7 @@
             rgba(0, 0, 0, 0.52) 0%,
             rgba(0, 0, 0, 0) 55%
         ),
-        url('./assets/home/hero-defininivo.png');
+        url('./assets/home/hero-defininivo.webp');
     }
 
     section.carreras > ul.resultados-carreras li > span {
