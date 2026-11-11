@@ -1,6 +1,8 @@
 @font-face {
     font-family: 'Anton';
     src: url(./assets/fonts/Anton-Regular.ttf) format('truetype');
+    /* Muestra texto con fuente del sistema hasta que cargue la tuya */
+    font-display: swap;
 }
 
 section p, section small {
@@ -27,7 +29,7 @@ section.home {
             rgba(0, 0, 0, 0.6) 0%,
             rgba(0, 0, 0, 0) 50%
         ),
-        url('./assets/home/hero-defininivo.png');
+        url('./assets/home/hero-defininivo.webp');
     background-repeat: no-repeat;
     background-size: cover;
 
