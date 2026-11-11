@@ -370,6 +370,7 @@
 
     .contenedor-filtro button {
         width: 50%;
+        padding: .9rem 1rem;
     }
 
 }
